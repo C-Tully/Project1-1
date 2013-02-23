@@ -95,6 +95,9 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
     {
         $node = new \Data\LinkedNode($value);
         $this->addNode($node);
+        
+        //Return the new nodes key
+        return $node->getKey();//Not too sure on the syntax and/or correctness of what i just put here... including it becuase the key needs to be returned ~Josh
     }
     
     /**
@@ -336,6 +339,17 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
             //3.look $key+1 < count
             //4. node @ $i -> value = node @ $i-
             
+            /*
+             *LOGIC USED
+             *1:Add new node
+             *2: for loop structure. i gets the total count, decrements as long as i is greater than the key of the node we're inserting into.
+             *3: set the value for the current node i (note: first one is empty) to be the value of the one before it.
+             *
+             *Using this we eliminate the need for a temp variable and thus just assign the values, no need to change the keys.
+             *
+             *~Josh
+             */
+            
             //adding a new node onto the end of the LinkedList with a NULL value
             $this->add(NULL);
             
@@ -437,7 +451,8 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
             unset($this->f_node);
             return NULL;
         }
-        $this->f_node->getNext() = $this->f_node;
+        //$this->f_node->getNext() = $this->f_node;//Not sure why, but we can't use this method here.
+        $this->f_node->setNext($this->f_node);//i put this here. im not sure if it's correct. but i think this is what you were trying to do? ~Josh
         --$this->count;
         //I'm just returning the new first node, not sure if we should return the new first node of the old first node
         return $this->f_node;
@@ -476,7 +491,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         $second_l_key = $this->l_node->getKey() - 1;
 
         //assinging that node to be the new last node based upon its key
-        $this->get($second_l_key) = $this->l_node;
+        //$this->get($second_l_key) = $this->l_node;//cant use method return value error. not sure what to do ~Josh
         $this->l_node->clearNext();
 
         --$this->count;
@@ -501,7 +516,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         $second_l_key = $this->l_node->getKey() - 1;
 
         //assinging that node to be the new last node based upon its key
-        $this->get($second_l_key) = $this->l_node;
+        //$this->get($second_l_key) = $this->l_node;//can't use method return value -  can't use '=' which means we need a set Function? ~Josh
         $this->l_node->clearNext();
 
         --$this->count;
@@ -539,7 +554,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         {
             if ($_value == $value) 
             {
-                unset($iterator->currentNode() );
+               // unset($iterator->currentNode() );//error with unsetting ~Josh
             }
         }
 
@@ -563,7 +578,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         {
             if ($_key == $key) 
             {
-                unset($iterator->currentNode() );
+                //unset($iterator->currentNode() );//Can't use return value... ~Josh
             }
         }
 
@@ -607,7 +622,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         {
             if ($iterator->currentNode() == $node) 
             {
-                unset($iterator->currentNode() );
+                //unset($iterator->currentNode() );//can't use method return value ~Josh
             }
         }
 
