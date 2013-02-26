@@ -448,14 +448,18 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         }
         if ($this->f_node === $this->l_node) 
         {
+            $return = $this->f_node;
             unset($this->f_node);
-            return NULL;
+            //return NULL;//should not be null ~Josh 26/02/13
+            return $return;
         }
         //$this->f_node->getNext() = $this->f_node;//Not sure why, but we can't use this method here.
         $this->f_node->setNext($this->f_node);//i put this here. im not sure if it's correct. but i think this is what you were trying to do? ~Josh
+        $return = $this->f_node;//assign the first node to the return variable
+        unset($this->f_node);//unset first
         --$this->count;
         //I'm just returning the new first node, not sure if we should return the new first node of the old first node
-        return $this->f_node;
+        return $return;//return the first node (contained in $return). 
     }
     
     /**
@@ -483,8 +487,10 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
         }
         if ($this->f_node === $this->l_node) 
         {
+            $return = $this->f_node;
             unset($this->f_node);
-            return NULL;
+            //return NULL;//this function never returns null unless called on an empty list. which will never exist. ~Josh 26/02/13
+            return $return;//method always returns a node, never null. the first if case is just a precaution. ~Josh 26/02/13
         }
 
         //grabbing the second to last node in the list based upon key
@@ -492,6 +498,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
 
         //assinging that node to be the new last node based upon its key
         //$this->get($second_l_key) = $this->l_node;//cant use method return value error. not sure what to do ~Josh
+        $this->l_node = $this->get($second_l_key);//switched around the two variables. same effect, no error ~Josh 26/02/13
         $this->l_node->clearNext();
 
         --$this->count;
@@ -508,8 +515,11 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
     {
         if ($this->f_node === $this->l_node) 
         {
+            $return = $this->l_node->getValue();
             unset($this->f_node);
-            return NULL;
+           // return NULL;//should be the value of l_node, not null ~Josh 26/02/13
+           return $return;
+           
         }
 
         //grabbing the second to last node in the list based upon key
@@ -517,7 +527,8 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
 
         //assinging that node to be the new last node based upon its key
         //$this->get($second_l_key) = $this->l_node;//can't use method return value -  can't use '=' which means we need a set Function? ~Josh
-        $this->l_node->clearNext();
+        $this->l_node = $this->get($second_l_key);
+        $this->l_node->clearNext();//clears the next value seeing as how it is now the last node in the list ~Josh 26/02/13
 
         --$this->count;
         return $this->l_node->getValue();
