@@ -584,7 +584,7 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
     public function removeAt($key)
     {
         $iterator = $this->getIterator();
-
+//@comment You can't call a iterator here.
         foreach ($iterator as $_key => $value) 
         {
             if ($_key == $key) 
@@ -649,9 +649,58 @@ class LinkedList implements \Data\LinkedLists\ILinkedList
      * @access public
      */
     public function sort()
-    {
+{
+//loops through the over all structure, finds the over all size.
+//the size is used as a counter.
 
-    }
+//we will create two varibles for moving every thing around. 
+
+//logic: We need to examine two nodes at a time check their key's against each other and the greater of the two must be placed last.
+
+
+//~~~Logic'd 
+if($temp1->getKey() > $temp2->getKey())
+{
+ // do shuffle
+} 
+
+//@param temp1 first variable used in comparative statements.
+//@param temp2 second variable used in comparative statements.
+//@comment Simply defining these variable at global level. 
+$temp1;
+$temp2;
+
+//this might not be the right statement, but it should work. Backwards...
+for ($i = $this->count; $i < $this->count; $i--)
+{
+$temp = $this->getNode($i);
+
+//@comment Check outofbounds of variables; might not be correct.
+if($temp2 =$this->getNode($i-1) == 0)
+{
+$temp2->getNode(0);
+}    
+
+else{
+$temp2 =$this->getNode($i-1);
+
+
+}
+//need to check here to make sure we don't go out of bounds
+
+//@comment  Not sure if this is correct here.
+if($temp1->getKey() < $temp2->getKey())
+{
+//@comment do swaping of nodes here.
+
+}
+
+//wash rinse repeat from here.
+
+
+
+}
+}
     
     /**
      * Sorts the list by using a callback to specify the value to compare on.
